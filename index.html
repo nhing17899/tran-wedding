@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>You're Invited — Tran Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════ PARTICLE CANVAS ═══════════ -->
+  <div id="particles"></div>
+
+  <!-- ═══════════ ENVELOPE SCENE ═══════════ -->
+  <section id="envelope-scene" class="scene">
+
+    <!-- Flap + stamp move as one unit -->
+    <div id="env-flap-unit" class="env-flap-unit">
+      <img id="env-flap-img" class="env-flap-img" src="/flap.png" alt="" aria-hidden="true" />
+      <button id="env-stamp" class="env-stamp" aria-label="Open invitation">
+        <img src="/stamp.png" alt="" />
+      </button>
+    </div>
+
+  </section>
+
+  <!-- ═══════════ INVITATION CONTENT ═══════════ -->
+  <main id="invitation" class="invitation hidden">
+
+    <!-- Hero -->
+    <section class="inv-hero">
+      <div class="inv-hero-content">
+        <p class="inv-subtitle">Together with their families</p>
+        <h1 class="inv-names">
+          <span class="name name-1">Tran</span>
+          <span class="ampersand">&amp;</span>
+          <span class="name name-2">Adam</span>
+        </h1>
+        <p class="inv-tagline">Request the pleasure of your company</p>
+        <div class="inv-date-badge">
+          <span class="inv-date">Saturday, October 10, 2026</span>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- Details -->
+    <section class="inv-section inv-details">
+      <h2 class="section-title">Celebration Details</h2>
+      <div class="details-grid">
+        <div class="detail-card">
+          <div class="detail-icon">🕐</div>
+          <h3>Ceremony</h3>
+          <p>4:00 PM</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">📍</div>
+          <h3>Venue</h3>
+          <p>The Grand Garden Estate</p>
+          <p class="detail-sub">123 Rose Lane, City</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-icon">🥂</div>
+          <h3>Reception</h3>
+          <p>6:00 PM — Late</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story timeline -->
+    <section class="inv-section inv-story">
+      <h2 class="section-title">Our Story</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>First Met</h3>
+            <p class="timeline-date">June 2020</p>
+            <p>A chance encounter that changed everything...</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>First Date</h3>
+            <p class="timeline-date">August 2020</p>
+            <p>Coffee turned into dinner turned into forever.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>The Proposal</h3>
+            <p class="timeline-date">December 2025</p>
+            <p>Under the stars, one question, one answer: Yes!</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>The Big Day</h3>
+            <p class="timeline-date">October 2026</p>
+            <p>And here we are — ready to celebrate with you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery placeholder -->
+    <section class="inv-section inv-gallery">
+      <h2 class="section-title">Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-1/600/600" alt="Tran & Adam" loading="lazy" /></div>
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-2/600/600" alt="Tran & Adam" loading="lazy" /></div>
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-3/600/600" alt="Tran & Adam" loading="lazy" /></div>
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-4/600/600" alt="Tran & Adam" loading="lazy" /></div>
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-5/600/600" alt="Tran & Adam" loading="lazy" /></div>
+        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-6/600/600" alt="Tran & Adam" loading="lazy" /></div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="inv-section inv-rsvp">
+      <h2 class="section-title">RSVP</h2>
+      <p class="rsvp-text">Kindly respond by <strong>August 1, 2026</strong></p>
+      <form class="rsvp-form" onsubmit="return false;">
+        <input type="text" placeholder="Your Full Name" class="rsvp-input" />
+        <div class="rsvp-radio-group">
+          <label class="rsvp-radio">
+            <input type="radio" name="attending" value="yes" /> Joyfully Accepts
+          </label>
+          <label class="rsvp-radio">
+            <input type="radio" name="attending" value="no" /> Regretfully Declines
+          </label>
+        </div>
+        <textarea placeholder="Dietary requirements or message..." class="rsvp-input rsvp-textarea"></textarea>
+        <button type="submit" class="rsvp-btn">Send RSVP</button>
+      </form>
+    </section>
+
+    <!-- Countdown + Footer -->
+    <section class="inv-section inv-footer">
+      <div id="countdown" class="countdown"></div>
+      <p class="footer-text">We can't wait to celebrate with you ♥</p>
+    </section>
+
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
