@@ -2,32 +2,30 @@
    VARIABLES & RESET
    ══════════════════════════════════════════ */
 :root {
-  /* Palette — warm romantic */
   --color-bg: #fdf6f0;
-  --color-cream: #faf3eb;
   --color-gold: #c9a96e;
   --color-gold-light: #e4cfa0;
-  --color-rose: #c97e7e;
-  --color-blush: #f2d9d5;
   --color-text: #3e3232;
   --color-text-light: #7a6a6a;
   --color-white: #ffffff;
 
-  /* Bordeaux envelope palette */
-  --bx-deep:     #4E0D18;
-  --bx-mid:      #7A1528;
-  --bx-main:     #9B2035;
-  --bx-bright:   #B52B45;
-  --bx-light:    #CC3355;
-  --bx-flap:     #C0354F;
-  --bx-flap-tip: #8A1C32;
+  --bx-deep: #3d0a14;
+  --bx-mid: #7A1528;
+  --bx-main: #9B2035;
+  --bx-bright: #B52B45;
+  --bx-light: #CC3355;
 
-  /* Typography */
-  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Montserrat', 'Helvetica Neue', sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-seasons: 'The Seasons', 'Cormorant Garamond', serif;
+  --font-script: 'New Icon Script', 'Pinyon Script', cursive;
+  --font-gwendolyn: 'Gwendolyn', 'Pinyon Script', cursive;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -36,7 +34,6 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -47,9 +44,16 @@ body {
   line-height: 1.6;
 }
 
-/* ══════════════════════════════════════════
-   PARTICLES OVERLAY
-   ══════════════════════════════════════════ */
+body.scroll-locked {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── Particles ── */
 #particles {
   position: fixed;
   inset: 0;
@@ -58,35 +62,25 @@ body {
 }
 
 /* ══════════════════════════════════════════
-   ENVELOPE SCENE — IMAGE BASED
+   ENVELOPE SCENE
    ══════════════════════════════════════════ */
 .scene {
   position: fixed;
   inset: 0;
   z-index: 10;
-  cursor: default;
-  /* Lighter red gradient — visible at bottom */
-  background: linear-gradient(
-    175deg,
-    #B01A3C 0%,
-    #7A1228 38%,
-    #520918 65%,
-    #320410 100%
-  );
+  background: linear-gradient(175deg, #B01A3C 0%, #7A1228 38%, #520918 65%, #320410 100%);
   overflow: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Container — flap image + stamp travel together */
 .env-flap-unit {
   position: absolute;
   inset: 0;
   will-change: transform;
-  pointer-events: none; /* children opt back in */
+  pointer-events: none;
 }
 
-/* The envelope flap image — covers full viewport */
 .env-flap-img {
   position: absolute;
   inset: 0;
@@ -95,20 +89,18 @@ body {
   object-fit: cover;
   object-position: center top;
   display: block;
-  transform-origin: top center;
   pointer-events: none;
-  /* Gradual fade — wide soft dissolve into envelope body */
-  -webkit-mask-image: linear-gradient(to bottom, black 32%, rgba(0,0,0,0.5) 55%, transparent 72%);
-  mask-image: linear-gradient(to bottom, black 32%, rgba(0,0,0,0.5) 55%, transparent 72%);
+  -webkit-mask-image: linear-gradient(to bottom, black 32%, rgba(0, 0, 0, .5) 55%, transparent 72%);
+  mask-image: linear-gradient(to bottom, black 32%, rgba(0, 0, 0, .5) 55%, transparent 72%);
 }
 
-/* Stamp — large focal element at the flap tip */
+/* Stamp — sits at the bottom tip of the flap's V-crease */
 .env-stamp {
   position: absolute;
-  top: 55vh;
+  top: 63vh;
   left: 50%;
-  width: min(90px, 22vw);
-  height: min(90px, 22vw);
+  width: min(120px, 28vw);
+  height: auto;
   transform: translate(-50%, -50%);
   background: none;
   border: none;
@@ -117,45 +109,44 @@ body {
   z-index: 3;
   pointer-events: auto;
   -webkit-tap-highlight-color: transparent;
-  overflow: hidden;
-  border-radius: 50%;
-  clip-path: circle(50% at 50% 50%);
   animation: stamp-float 3.8s ease-in-out infinite;
 }
 
 .env-stamp img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
   pointer-events: none;
-  /* Zoom in to fill past the transparent padding in stamp.png */
-  transform: scale(2.4);
-  transform-origin: center center;
-  filter: drop-shadow(0 0 6px rgba(210, 60, 70, 0.30))
-          drop-shadow(0 4px 14px rgba(0, 0, 0, 0.50));
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, .55)) drop-shadow(0 0 8px rgba(210, 60, 70, .28));
   animation: stamp-glow 3.8s ease-in-out infinite;
 }
 
 @keyframes stamp-float {
-  0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-  50%       { transform: translate(-50%, -50%) translateY(-3px); }
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translateY(-4px);
+  }
 }
 
 @keyframes stamp-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px rgba(200, 50, 60, 0.28))
-            drop-shadow(0 4px 14px rgba(0, 0, 0, 0.50));
+
+  0%,
+  100% {
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, .55)) drop-shadow(0 0 6px rgba(200, 50, 60, .25));
   }
+
   50% {
-    filter: drop-shadow(0 0 12px rgba(220, 70, 80, 0.55))
-            drop-shadow(0 6px 18px rgba(0, 0, 0, 0.40));
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, .45)) drop-shadow(0 0 14px rgba(220, 70, 80, .55));
   }
 }
 
 .env-stamp:hover img {
-  filter: drop-shadow(0 0 16px rgba(230, 90, 90, 0.70))
-          drop-shadow(0 6px 18px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 6px 22px rgba(0, 0, 0, .6)) drop-shadow(0 0 18px rgba(230, 90, 90, .7));
   animation-play-state: paused;
 }
 
@@ -163,48 +154,52 @@ body {
   transform: translate(-50%, -50%) scale(0.93);
 }
 
-/* Tap hint — bottom center */
-.tap-hint {
+/* Envelope text — "You Have an Invitation from / Tran & Adam" */
+.env-text {
   position: absolute;
-  bottom: clamp(1.8rem, 5vh, 3.5rem);
-  left: 50%;
-  transform: translateX(-50%);
+  top: 74vh;
+  left: 0; right: 0;
+  text-align: center;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-sans);
-  font-size: clamp(0.65rem, 2.4vw, 0.78rem);
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255, 220, 205, 0.7);
-  white-space: nowrap;
   pointer-events: none;
-  animation: fade-pulse 2.8s ease-in-out infinite;
+  animation: env-text-in 1.4s ease-out 0.6s both;
+}
+@keyframes env-text-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.tap-heart {
-  font-size: 1rem;
-  animation: heartbeat 1.8s ease-in-out infinite;
-  display: inline-block;
+.env-invite-from {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(.85rem, 2.8vw, 1.1rem);
+  color: rgba(255, 205, 190, .72);
+  letter-spacing: .06em;
+  margin-bottom: .5rem;
 }
 
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14%  { transform: scale(1.3); }
-  28%  { transform: scale(1); }
-  42%  { transform: scale(1.18); }
-  56%  { transform: scale(1); }
+.env-invite-names {
+  font-family: var(--font-script);
+  font-size: clamp(2.4rem, 9vw, 3.8rem);
+  color: rgba(255, 225, 210, .92);
+  text-shadow: 0 2px 20px rgba(0,0,0,.3);
+  line-height: 1;
 }
 
 @keyframes fade-pulse {
-  0%, 100% { opacity: 0.45; }
-  50%       { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: .45;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ══════════════════════════════════════════
-   INVITATION — GLOBAL
+   INVITATION SHELL
    ══════════════════════════════════════════ */
 .invitation {
   position: relative;
@@ -217,362 +212,600 @@ body {
 
 .inv-section {
   padding: 5rem 2rem;
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
 }
 
 .section-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: var(--font-seasons);
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
   font-weight: 400;
   text-align: center;
   color: var(--color-gold);
   margin-bottom: 3rem;
-  letter-spacing: 0.05em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
 }
 
 /* ══════════════════════════════════════════
-   HERO
+   1. HERO  — tran2.jpg + dark-red overlay
    ══════════════════════════════════════════ */
 .inv-hero {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   padding: 2rem;
   position: relative;
+  padding-top: clamp(10vh, 14vh, 18vh);
+  /* content starts higher than center */
   background:
-    radial-gradient(ellipse at 50% 0%, var(--color-blush) 0%, transparent 60%),
-    var(--color-bg);
+    linear-gradient(to bottom, rgba(80, 0, 0, .5) 0%, rgba(40, 0, 0, .38) 50%, rgba(20, 0, 0, .6) 100%),
+    url('/tran2.jpg') center / cover no-repeat;
+  background-attachment: fixed;
+}
+
+.inv-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 42%, rgba(10, 0, 0, .4) 100%);
+  pointer-events: none;
 }
 
 .inv-hero-content {
-  opacity: 1;
-}
-
-.inv-subtitle {
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-text-light);
-  margin-bottom: 1.5rem;
-}
-
-.inv-names {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 1.1;
-  color: var(--color-text);
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2em;
 }
 
-.ampersand {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.5em;
-  color: var(--color-gold);
-}
-
-.inv-tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.15rem;
-  color: var(--color-text-light);
-  margin-top: 1.5rem;
-}
-
-.inv-date-badge {
-  display: inline-block;
-  margin-top: 2rem;
-  padding: 0.75rem 2.5rem;
-  border: 1.5px solid var(--color-gold-light);
-  border-radius: 50px;
-}
-
-.inv-date {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+/* "Save the Date" — The Seasons, big tracked */
+.inv-save-date {
+  font-family: var(--font-seasons);
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-weight: 400;
+  letter-spacing: .5em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: rgba(255, 228, 205, .85);
+  margin-bottom: 1rem;
+  padding-top: 4rem;
 }
 
-/* Scroll indicator */
+/* Three-line name stack */
+.inv-names-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  margin: .6rem 0 1.4rem;
+}
+
+.inv-name {
+  font-family: var(--font-script);
+  font-size: clamp(6rem, 22vw, 15rem);
+  /* bigger */
+  color: #fff;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, .35);
+  display: block;
+}
+
+.inv-amp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(2.2rem, 6.5vw, 5rem);
+  color: var(--color-gold-light);
+  /* No letter-spacing — it adds trailing whitespace that shifts the glyph
+     left of its CSS box, making it look off-center in a flex column */
+  letter-spacing: 0;
+  margin: .25em 0 .15em;
+  display: block;
+}
+
+/* Plain date — no border, no box, larger */
+.inv-date-plain {
+  font-family: var(--font-seasons);
+  font-size: clamp(1.6rem, 5.5vw, 3rem);
+  letter-spacing: .28em;
+  color: rgba(255, 222, 195, .88);
+  margin-top: .75rem;
+}
+
 .scroll-indicator {
   position: absolute;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 .scroll-arrow {
-  width: 24px;
-  height: 24px;
-  border-right: 2px solid var(--color-gold-light);
-  border-bottom: 2px solid var(--color-gold-light);
+  width: 22px;
+  height: 22px;
+  border-right: 1.5px solid rgba(255, 220, 200, .5);
+  border-bottom: 1.5px solid rgba(255, 220, 200, .5);
   transform: rotate(45deg);
   animation: scroll-bounce 2s ease-in-out infinite;
 }
 
 @keyframes scroll-bounce {
-  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.5; }
-  50% { transform: rotate(45deg) translateY(8px); opacity: 1; }
+
+  0%,
+  100% {
+    transform: rotate(45deg) translateY(0);
+    opacity: .4;
+  }
+
+  50% {
+    transform: rotate(45deg) translateY(8px);
+    opacity: 1;
+  }
 }
 
 /* ══════════════════════════════════════════
-   DETAILS
+   2. DETAILS  — bg_page2.png background
    ══════════════════════════════════════════ */
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-}
-
-.detail-card {
+.inv-details {
+  max-width: 100%;
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 1;
+  /* must be above inv-program so the shadow isn't buried */
   text-align: center;
-  padding: 2.5rem 1.5rem;
-  background: var(--color-white);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: url('/bg_page2.png') center / cover no-repeat;
+  background-attachment: fixed;
+  box-shadow: 0 12px 40px 20px rgba(57, 57, 57, 0.217);
 }
 
-.detail-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+/* Romantic italic headline — Playfair Display */
+.details-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.15rem, 3.2vw, 1.7rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--bx-mid);
+  max-width: 680px;
+  margin: 0 auto 3rem;
+  /* extra breathing room below */
+  text-shadow: 0 1px 3px rgba(255, 255, 255, .7);
+  padding-top: 1rem;
 }
 
-.detail-icon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+/* Gwendolyn calligraphic couple names */
+.details-couple {
+  font-family: var(--font-gwendolyn);
+  font-size: clamp(4rem, 14vw, 7.5rem);
+  font-weight: 400;
+  /* regular weight — lighter feel */
+  line-height: 1;
+  color: var(--bx-deep);
+  margin-bottom: .6rem;
+  text-shadow: 0 2px 8px rgba(255, 255, 255, .5);
 }
 
-.detail-card h3 {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--color-gold);
-  margin-bottom: 0.5rem;
-}
-
-.detail-card p {
-  font-size: 0.95rem;
-  color: var(--color-text);
-}
-
-.detail-sub {
-  font-size: 0.85rem !important;
-  color: var(--color-text-light) !important;
-  margin-top: 0.25rem;
-}
-
-/* ══════════════════════════════════════════
-   TIMELINE
-   ══════════════════════════════════════════ */
-.timeline {
-  position: relative;
-  padding-left: 2rem;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--color-gold-light);
-}
-
-.timeline-item {
-  position: relative;
+.details-invite {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(.95rem, 2.5vw, 1.15rem);
+  font-weight: 400;
+  /* not bold */
+  color: var(--color-text-light);
   margin-bottom: 3rem;
-  padding-left: 2rem;
-  opacity: 0; /* animated by GSAP */
-  transform: translateX(-20px);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, .6);
 }
 
-.timeline-dot {
-  position: absolute;
-  left: -2rem;
-  top: 0.3rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--color-gold);
-  border: 3px solid var(--color-bg);
-  box-shadow: 0 0 0 2px var(--color-gold-light);
-}
-
-.timeline-content h3 {
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--color-text);
-  margin-bottom: 0.25rem;
-}
-
-.timeline-date {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: 0.5rem;
-}
-
-.timeline-content p:last-child {
-  color: var(--color-text-light);
-  font-size: 0.95rem;
-}
-
-/* ══════════════════════════════════════════
-   GALLERY
-   ══════════════════════════════════════════ */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.gallery-item {
-  aspect-ratio: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-.placeholder-img {
-  background: linear-gradient(135deg, var(--color-blush), var(--color-cream));
+/* Three columns: Venue | Date | Time */
+/*
+  Vertical stack — each item (Venue / Date / Time) occupies its own
+  full-width row with a gap between them, stretching across the background.
+*/
+.details-info {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  color: var(--color-text-light);
-}
-
-.gallery-item img {
+  gap: 2.2rem;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-top: 4rem;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
+.detail-item {
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 2rem;
 }
+
+.detail-label {
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  font-weight: 700;
+  /* bolder */
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--bx-main);
+  margin-bottom: .55rem;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, .7);
+}
+
+.detail-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.8vw, 2rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, .6);
+}
+
+.detail-address {
+  font-size: .82rem;
+  color: var(--color-text-light);
+  margin-top: .3rem;
+}
+
+/* Google Maps link */
+.detail-map-link {
+  display: inline-block;
+  margin-top: .55rem;
+  font-family: var(--font-sans);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: var(--bx-main);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(155, 32, 53, .35);
+  transition: color .25s, border-color .25s;
+}
+
+.detail-map-link:hover {
+  color: var(--bx-bright);
+  border-color: var(--bx-bright);
+}
+
+/* Save-to-calendar button */
+.save-to-cal {
+  display: block;
+  position: relative;
+  z-index: 2;
+  margin: 3rem auto 0;
+  padding: .85rem 2.4rem;
+  font-family: var(--font-seasons);
+  font-size: .85rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--bx-deep);
+  background: rgba(255,255,255,.55);
+  border: 1.5px solid rgba(61,10,20,.35);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background .25s, border-color .25s, transform .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.save-to-cal:hover {
+  background: rgba(255,255,255,.8);
+  border-color: var(--bx-mid);
+  transform: translateY(-2px);
+}
+.save-to-cal:active { transform: scale(.97); }
 
 /* ══════════════════════════════════════════
-   RSVP
+   3. THE PROGRAM  — white + hints of rose/dark-red
    ══════════════════════════════════════════ */
-.inv-rsvp {
+.inv-program {
+  max-width: 100%;
+  padding: 6rem 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  background: url('/bg_page3.png') center / cover no-repeat;
+  background-attachment: fixed;
+  min-height: 70vh;
 }
 
-.rsvp-text {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  color: var(--color-text-light);
-  margin-bottom: 2rem;
+.inv-program .section-title {
+  color: var(--bx-mid);
+  letter-spacing: .18em;
 }
 
-.rsvp-form {
+.program-list {
   max-width: 480px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 2.5rem;
 }
 
-.rsvp-input {
-  font-family: var(--font-sans);
-  font-size: 0.95rem;
-  padding: 0.9rem 1.2rem;
-  border: 1.5px solid var(--color-gold-light);
-  border-radius: 8px;
-  background: var(--color-white);
-  color: var(--color-text);
-  outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.program-block {
+  background: none;
+  padding: 0;
 }
 
-.rsvp-input:focus {
-  border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
-}
-
-.rsvp-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.rsvp-radio-group {
-  display: flex;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.rsvp-radio {
-  font-size: 0.9rem;
-  color: var(--color-text);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.rsvp-radio input[type="radio"] {
-  accent-color: var(--color-gold);
-}
-
-.rsvp-btn {
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+.program-block-title {
+  font-family: var(--font-seasons);
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-weight: 400;
+  letter-spacing: .22em;
   text-transform: uppercase;
-  padding: 1rem 2rem;
-  border: none;
-  border-radius: 50px;
-  background: var(--color-gold);
-  color: var(--color-white);
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  color: var(--bx-main);
+  margin-bottom: 1.2rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid rgba(155, 32, 53, .2);
 }
 
-.rsvp-btn:hover {
-  background: #b8944f;
-  transform: translateY(-2px);
+.program-items {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  align-items: center;
 }
 
-.rsvp-btn:active {
-  transform: translateY(0);
+.program-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: .9rem;
+}
+
+.program-time {
+  font-family: var(--font-sans);
+  font-size: .7rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  color: var(--bx-main);
+  min-width: 40px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.program-desc {
+  font-family: var(--font-display);
+  font-size: clamp(.95rem, 2.5vw, 1.1rem);
+  font-style: italic;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.program-divider {
+  height: 1px;
+  width: 60px;
+  margin: 0 auto;
+  background: linear-gradient(to right, transparent, rgba(155, 32, 53, .35), transparent);
 }
 
 /* ══════════════════════════════════════════
-   COUNTDOWN & FOOTER
+   4. GALLERY — film strip + polaroid collage
    ══════════════════════════════════════════ */
-.inv-footer {
-  text-align: center;
-  padding-bottom: 4rem;
+.inv-gallery {
+  background: #f0ebe4; /* warm parchment — like a photo album page */
+  position: relative;
+  z-index: 3;          /* sits above countdown so polaroids can overlap it */
+  overflow-x: clip;    /* clip horizontal without creating overflow context (allows y overflow) */
+  padding-bottom: 10px; /* extra room so polaroids bleed downward into countdown */
+  box-shadow: 0 10px 60px 10px rgba(40, 20, 10, 0.22);
 }
 
+/* ── Film Strip ── */
+.film-strip {
+  background: #1a0e04;
+  padding: 16px 0;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+}
+
+/*
+  Sprocket holes: rows of white rectangles along top and bottom
+  using repeating-linear-gradient horizontally.
+*/
+.film-strip::before,
+.film-strip::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-image: repeating-linear-gradient(to right,
+      transparent 0px,
+      transparent 6px,
+      rgba(255, 255, 255, .85) 6px,
+      rgba(255, 255, 255, .85) 18px,
+      transparent 18px,
+      transparent 28px);
+  background-repeat: repeat-x;
+}
+
+.film-strip::before {
+  top: 3px;
+}
+
+.film-strip::after {
+  bottom: 3px;
+}
+
+/* Horizontal scrollable frame row */
+.film-track {
+  display: flex;
+  gap: 6px;
+  padding: 0 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.film-track::-webkit-scrollbar {
+  display: none;
+}
+
+.film-frame {
+  flex-shrink: 0;
+  width: clamp(80px, 28vw, 160px);
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, .08);
+}
+
+.film-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(.15) contrast(1.05);
+}
+
+/* ── Gallery hero image — full-width, no polaroid frame ── */
+.gallery-hero-img {
+  width: 100%;
+  line-height: 0;
+  /* kill any inline spacing */
+}
+
+.gallery-hero-img img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 3/3;
+  object-fit: cover;
+  object-position: 50% center;
+}
+
+/* ── Polaroid Collage ── */
+.polaroid-collage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 2rem 1.5rem 2rem;
+  position: relative;
+  z-index: 2;
+  /* Overlap a small corner of the hero image */
+  margin-top: -6vw;
+}
+
+/*
+  Each polaroid: white border (classic polaroid ratio),
+  drop shadow, rotation from --rot CSS var.
+  Negative margin creates corner-to-corner overlap between the two portrait polaroids.
+*/
+.polaroid {
+  background: #fff;
+  padding: 8px 8px 30px;
+  /* classic polaroid bottom gap */
+  box-shadow: 2px 4px 16px rgba(0, 0, 0, .16), 0 1px 4px rgba(0, 0, 0, .08);
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1), box-shadow .35s ease;
+  will-change: transform;
+  position: relative;
+  margin: -38px;
+}
+
+/* .polaroid:hover {
+  transform: rotate(0deg) scale(1.04) translateY(-5px) !important;
+  box-shadow: 4px 10px 28px rgba(0, 0, 0, .24);
+  z-index: 10;
+} */
+
+.polaroid img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+}
+
+/* Optional hand-written caption at bottom of polaroid */
+.polaroid-caption {
+  font-family: var(--font-script);
+  font-size: .95rem;
+  text-align: center;
+  color: #555;
+  margin-top: 4px;
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+}
+
+/* Text label cards ("The Album", "Of Love") — raw text only, no card */
+.polaro-label {
+  background: none;
+  box-shadow: none;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(var(--rot, 0deg));
+  transition: transform .35s ease;
+}
+
+/* .polaro-label:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+} */
+
+.label-script {
+  font-family: var(--font-script);
+  font-size: clamp(3.5rem, 12vw, 6rem);
+  color: #444;
+  line-height: 1;
+}
+
+.label-caps {
+  font-family: var(--font-seasons);
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #444;
+  line-height: 1.4;
+}
+
+.polaro-label--album .label-caps {
+  font-size: 1.5rem;
+  align-self: stretch;
+  justify-content: center;
+}
+
+.polaro-label--love {
+  align-self: stretch;
+  justify-content: center;
+}
+
+.polaro-label--love .label-caps {
+  font-size: 1.5rem;
+}
+
+/* ══════════════════════════════════════════
+   5. COUNTDOWN  — same white+hints as Program
+   ══════════════════════════════════════════ */
+.inv-countdown-section {
+  max-width: 100%;
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1; /* below gallery so polaroids overlap on top */
+  background: url('/bg_page2.png') center bottom / cover no-repeat;
+  background-attachment: fixed;
+}
+
+.countdown-eyebrow {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--bx-mid);
+  /* dark text on light bg */
+  margin-bottom: 2.5rem;
+  letter-spacing: .04em;
+}
+
+/* Countdown clock */
 .countdown {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: clamp(1rem, 4vw, 3rem);
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .countdown-unit {
@@ -582,48 +815,263 @@ body {
 }
 
 .countdown-number {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 300;
-  color: var(--color-gold);
+  font-family: var(--font-seasons);
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 400;
   line-height: 1;
+  color: var(--bx-deep);
+  /* dark red on white */
 }
 
 .countdown-label {
-  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: .62rem;
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: .25em;
   text-transform: uppercase;
   color: var(--color-text-light);
-  margin-top: 0.5rem;
+  margin-top: .5rem;
 }
 
-.footer-text {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--color-text-light);
+.countdown-bottom-date {
+  font-family: var(--font-seasons);
+  font-size: clamp(.9rem, 2.8vw, 1.25rem);
+  letter-spacing: .3em;
+  color: var(--bx-main);
+  margin-top: .5rem;
 }
 
 /* ══════════════════════════════════════════
-   RESPONSIVE
+   6. THANK YOU FOOTER
    ══════════════════════════════════════════ */
-@media (max-width: 600px) {
+.inv-footer {
+  background: var(--color-bg);
+  padding: 6rem 2rem 5rem;
+  text-align: center;
+}
+
+.thankyou-label {
+  font-family: var(--font-seasons);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bx-main);
+  margin-bottom: .5rem;
+}
+
+.thankyou-names {
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 11vw, 6rem);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.thankyou-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.thankyou-date {
+  font-family: var(--font-seasons);
+  font-size: clamp(.85rem, 2.5vw, 1.1rem);
+  letter-spacing: .3em;
+  color: var(--color-gold);
+}
+
+/* ══════════════════════════════════════════
+   MUSIC TOGGLE
+   ══════════════════════════════════════════ */
+.music-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold-light);
+  background: rgba(255, 255, 255, .85);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.music-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+
+.music-toggle:active {
+  transform: scale(.95);
+}
+
+.music-icon {
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  user-select: none;
+}
+
+.music-toggle.muted .music-icon {
+  opacity: .4;
+}
+
+@keyframes note-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.music-toggle.playing .music-icon {
+  display: inline-block;
+  animation: note-spin 4s linear infinite;
+}
+
+/* ══════════════════════════════════════════
+   SCROLL-REVEAL INITIAL STATE
+   Elements start invisible; GSAP drives them in.
+   ══════════════════════════════════════════ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  /* Transition used as fallback if JS disabled */
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+/* Polaroid collage items also start hidden */
+.polaroid,
+.polaro-label,
+.film-strip,
+.gallery-hero-img {
+  opacity: 0;
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — mobile tweaks
+   ══════════════════════════════════════════ */
+@media (max-width: 640px) {
   .inv-section {
     padding: 3.5rem 1.25rem;
   }
 
-  .rsvp-radio-group {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  .gallery-grid { columns: 2; }
+
+  /* Parallax breaks on mobile Safari */
+  .inv-hero,
+  .inv-details,
+  .inv-program,
+  .inv-countdown-section {
+    background-attachment: scroll;
+  }
+}
+
+/* ══════════════════════════════════════════
+   DESKTOP  (≥ 641 px)
+   Keep the exact mobile layout, centered in a
+   430 px column with white sides.
+   ══════════════════════════════════════════ */
+@media (min-width: 641px) {
+
+  /* White sidebar — warm white matching the page background */
+  html {
+    background: #fdf6f0;
   }
 
+  /* Constrain the fixed envelope scene to the same column */
+  #envelope-scene {
+    top: 0; bottom: 0;
+    left: 50%; right: auto;
+    width: 430px;
+    transform: translateX(-50%);
+  }
+
+  /* Particles stay within the column too */
+  #particles {
+    left: 50%; right: auto;
+    width: 430px;
+    transform: translateX(-50%);
+  }
+
+  /* Center the scrollable invitation in the same column */
+  .invitation {
+    max-width: 430px;
+    margin: 0 auto;
+    box-shadow: -6px 0 32px rgba(0,0,0,0.10), 6px 0 32px rgba(0,0,0,0.10);
+  }
+
+  /* Envelope gets matching shadows during opening */
+  #envelope-scene {
+    box-shadow: -6px 0 32px rgba(0,0,0,0.18), 6px 0 32px rgba(0,0,0,0.18);
+  }
+
+  /* Countdown: tighten gap so all 4 units fit in the 430px column */
   .countdown {
     gap: 1rem;
   }
 
-  .details-grid {
-    grid-template-columns: 1fr;
+  /* background-attachment:fixed is viewport-relative — in a 430 px
+     column it makes the image drift sideways while scrolling.
+     Scroll fills the column correctly. */
+  .inv-hero,
+  .inv-details,
+  .inv-program,
+  .inv-countdown-section {
+    background-attachment: scroll;
   }
+
+  /* Align fixed music button to the column's right edge */
+  #music-toggle {
+    right: calc(50% - 215px + 1.5rem);
+  }
+
+  /* ── Font-size overrides ─────────────────────────────────────
+     clamp() middle values use vw = full viewport width (e.g. 1440px),
+     not the 430px column. On desktop every vw-based size blows up.
+     Pin them to the same visual sizes they produce on a ~390px mobile.
+  ── */
+
+  /* Hero names (script font) */
+  .inv-name         { font-size: 6.5rem; }
+  .inv-amp          { font-size: 2.6rem; }
+  .inv-save-date    { font-size: 1.4rem; }
+  .inv-date-plain   { font-size: 1.9rem; }
+
+  /* Details section */
+  .details-couple   { font-size: 4.8rem; }
+  .details-quote    { font-size: 1.2rem; }
+  .details-invite   { font-size: 1rem;   }
+  .detail-value     { font-size: 1.4rem; }
+
+  /* Program section */
+  .section-title    { font-size: 1.7rem; }
+  .program-block-title { font-size: 1.15rem; }
+  .program-desc     { font-size: 1rem;   }
+
+  /* Gallery labels */
+  .label-script     { font-size: 3.8rem; }
+  .label-caps       { font-size: 1.15rem; }
+  .polaro-label--love .label-caps { font-size: 2rem; }
+
+  /* Countdown */
+  .countdown-number { font-size: 3.2rem; }
+  .countdown-eyebrow { font-size: 1.1rem; }
+
+  /* Footer */
+  .thankyou-label   { font-size: 3rem;   }
+  .thankyou-names   { font-size: 3.8rem; }
+  .thankyou-text    { font-size: 1rem;   }
 }

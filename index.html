@@ -3,153 +3,231 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You're Invited — Tran Wedding</title>
+  <title>Save the Date — Tran &amp; Adam · 09.07.2026</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Gwendolyn:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Pinyon+Script&display=swap" rel="stylesheet" />
+
+  <!-- The Seasons — uppercase display serif -->
+  <link href="https://fonts.cdnfonts.com/css/the-seasons" rel="stylesheet" />
+  <!-- New Icon Script — calligraphic couple names -->
+  <link href="https://fonts.cdnfonts.com/css/new-icon-script" rel="stylesheet" />
+
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
 
-  <!-- ═══════════ PARTICLE CANVAS ═══════════ -->
+  <!-- ═══════════ PARTICLES ═══════════ -->
   <div id="particles"></div>
 
   <!-- ═══════════ ENVELOPE SCENE ═══════════ -->
   <section id="envelope-scene" class="scene">
-
-    <!-- Flap + stamp move as one unit -->
+    <!--
+      The entire flap-unit (flap + stamp + hint) sweeps upward
+      as one piece when the user taps — reveals the invitation below.
+    -->
     <div id="env-flap-unit" class="env-flap-unit">
       <img id="env-flap-img" class="env-flap-img" src="/flap.png" alt="" aria-hidden="true" />
       <button id="env-stamp" class="env-stamp" aria-label="Open invitation">
-        <img src="/stamp.png" alt="" />
+        <img src="/stamp.png" alt="Tap to open" />
       </button>
+      <!-- Envelope text — sweeps up with the flap on open -->
+      <div class="env-text">
+        <p class="env-invite-from">You Have an Invitation from</p>
+        <p class="env-invite-names">Tran &amp; Adam</p>
+      </div>
     </div>
-
   </section>
 
-  <!-- ═══════════ INVITATION CONTENT ═══════════ -->
+  <!-- ═══════════ INVITATION ═══════════ -->
   <main id="invitation" class="invitation hidden">
 
-    <!-- Hero -->
+    <!-- ── 1. HERO ─────────────────────────────────────────── -->
     <section class="inv-hero">
       <div class="inv-hero-content">
-        <p class="inv-subtitle">Together with their families</p>
-        <h1 class="inv-names">
-          <span class="name name-1">Tran</span>
-          <span class="ampersand">&amp;</span>
-          <span class="name name-2">Adam</span>
-        </h1>
-        <p class="inv-tagline">Request the pleasure of your company</p>
-        <div class="inv-date-badge">
-          <span class="inv-date">Saturday, October 10, 2026</span>
+        <!-- The Seasons display font — tracked uppercase headline -->
+        <p class="inv-save-date">Save the Date</p>
+
+        <!-- Names stacked on three lines for visual drama -->
+        <div class="inv-names-stack">
+          <span class="inv-name inv-name-1">Tran</span>
+          <span class="inv-amp">&amp;</span>
+          <span class="inv-name inv-name-2">Adam</span>
         </div>
+
+        <!-- Plain date — no box, no border -->
+        <p class="inv-date-plain">09 · 07 · 2026</p>
       </div>
       <div class="scroll-indicator">
         <div class="scroll-arrow"></div>
       </div>
     </section>
 
-    <!-- Details -->
+    <!-- ── 2. DETAILS — bg_page2.png background ───────────── -->
     <section class="inv-section inv-details">
-      <h2 class="section-title">Celebration Details</h2>
-      <div class="details-grid">
-        <div class="detail-card">
-          <div class="detail-icon">🕐</div>
-          <h3>Ceremony</h3>
-          <p>4:00 PM</p>
+      <!-- Italic serif quote as headline -->
+      <p class="details-quote animate-on-scroll">
+        hand in hand, heart to heart,<br>
+        on this day our adventure starts
+      </p>
+
+      <!-- Script couple names -->
+      <h2 class="details-couple animate-on-scroll">Tran &amp; Adam</h2>
+      <bto class="details-invite animate-on-scroll">invite you </br>to witness and celebrate our wedding</p>
+
+      <!-- Info blocks: Venue / Date / Time -->
+      <div class="details-info">
+        <div class="detail-item animate-on-scroll">
+          <h3 class="detail-label">Venue</h3>
+          <p class="detail-value">Nha Hang Golden Phoenix</p>
+          <!-- Google Maps link -->
+          <a class="detail-map-link"
+             href="https://www.google.com/maps/search/Golden+Phoenix+Restaurant+Danang+Vietnam"
+             target="_blank" rel="noopener noreferrer">
+            📍 Đường 2 Tháng 9, Đà Nẵng
+          </a>
         </div>
-        <div class="detail-card">
-          <div class="detail-icon">📍</div>
-          <h3>Venue</h3>
-          <p>The Grand Garden Estate</p>
-          <p class="detail-sub">123 Rose Lane, City</p>
+        <div class="detail-item animate-on-scroll">
+          <h3 class="detail-label">Date</h3>
+          <p class="detail-value">09.07.2026</p>
         </div>
-        <div class="detail-card">
-          <div class="detail-icon">🥂</div>
-          <h3>Reception</h3>
-          <p>6:00 PM — Late</p>
+        <div class="detail-item animate-on-scroll">
+          <h3 class="detail-label">Time</h3>
+          <p class="detail-value">11:00 – 13:00</p>
         </div>
+      </div>
+
+      <!-- Save to calendar CTA -->
+      <button id="save-to-cal" class="save-to-cal animate-on-scroll" aria-label="Add to calendar">
+        Save the Date
+      </button>
+    </section>
+
+    <!-- ── 3. THE PROGRAM ─────────────────────────────────── -->
+    <section class="inv-section inv-program">
+      <h2 class="section-title animate-on-scroll" style="padding-top: 3.5rem;">The Program</h2>
+      <div class="program-list">
+
+        <!-- Ceremony block -->
+        <div class="program-block animate-on-scroll">
+          <h3 class="program-block-title">Ceremony</h3>
+          <div class="program-items">
+            <div class="program-item">
+              <span class="program-time">11:00</span>
+              <span class="program-desc">Guest arrival</span>
+            </div>
+            <div class="program-item">
+              <span class="program-time">11:15</span>
+              <span class="program-desc">Vow ceremony</span>
+            </div>
+            <div class="program-item">
+              <span class="program-time">12:00</span>
+              <span class="program-desc">Photoshoot</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Reception block -->
+        <div class="program-block animate-on-scroll">
+          <h3 class="program-block-title" style="padding-top: 1rem;">Reception Lunch</h3>
+          <div class="program-items">
+            <div class="program-item">
+              <span class="program-time">12:15</span>
+              <span class="program-desc">Lunch and Toast</span>
+            </div>
+            <div class="program-item">
+              <span class="program-time">13:15</span>
+              <span class="program-desc">Farewell</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Our Story timeline -->
-    <section class="inv-section inv-story">
-      <h2 class="section-title">Our Story</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>First Met</h3>
-            <p class="timeline-date">June 2020</p>
-            <p>A chance encounter that changed everything...</p>
-          </div>
+    <!-- ── 4. GALLERY — film strip + polaroid collage ─────── -->
+    <section class="inv-gallery">
+
+      <!--
+        Film strip: 4 images in a dark filmstrip with sprocket holes.
+        The strip uses ::before / ::after for the hole row effect.
+      -->
+      <div class="film-strip">
+        <div class="film-track">
+          <div class="film-frame"><img src="/grid_1.jpg" alt="" loading="lazy" /></div>
+          <div class="film-frame"><img src="/grid_2.jpg" alt="" loading="lazy" /></div>
+          <div class="film-frame"><img src="/grid_3.jpg" alt="" loading="lazy" /></div>
+          <div class="film-frame"><img src="/grid_4.jpg" alt="" loading="lazy" /></div>
+          <!-- Loop a couple for seamless feel on wide screens -->
+          <div class="film-frame"><img src="/grid_5.jpg" alt="" loading="lazy" /></div>
+          <div class="film-frame"><img src="/grid_6.jpg" alt="" loading="lazy" /></div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>First Date</h3>
-            <p class="timeline-date">August 2020</p>
-            <p>Coffee turned into dinner turned into forever.</p>
-          </div>
+      </div>
+
+      <!-- Full-width hero photo — plain image, no polaroid frame -->
+      <div class="gallery-hero-img">
+        <img src="/grid_9.jpg" alt="" loading="lazy" />
+      </div>
+
+      <!--
+        Polaroid collage: overlaps the bottom of the hero image.
+        Each polaroid has --rot CSS var for its tilt angle.
+      -->
+      <div class="polaroid-collage">
+
+        <!-- Row 1: The ALBUM label (left) + grid_8 (right) -->
+        <div class="polaro-label polaro-label--album" style="align-items: flex-start;">
+          <span class="label-script">The</span>
+          <span class="label-caps">ALBUM</span>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>The Proposal</h3>
-            <p class="timeline-date">December 2025</p>
-            <p>Under the stars, one question, one answer: Yes!</p>
-          </div>
+        <div class="polaroid" style="--rot: 9deg; position: relative; z-index: 2;">
+          <img src="/grid_8.jpg" alt="" loading="lazy" />
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content">
-            <h3>The Big Day</h3>
-            <p class="timeline-date">October 2026</p>
-            <p>And here we are — ready to celebrate with you.</p>
-          </div>
+
+        <!-- Row 2: grid_10 (left) + OF LOVE (right) -->
+        <div class="polaroid" style="--rot: -12deg; margin-top: -70px;">
+          <img src="/grid_10.jpg" alt="" loading="lazy" />
         </div>
+        <div class="polaro-label polaro-label--love" style="align-items: flex-end; margin-top: 20px;">
+          <span class="label-caps">Of</span>
+          <span class="label-script">Love</span>
+        </div>
+
       </div>
     </section>
 
-    <!-- Gallery placeholder -->
-    <section class="inv-section inv-gallery">
-      <h2 class="section-title">Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-1/600/600" alt="Tran & Adam" loading="lazy" /></div>
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-2/600/600" alt="Tran & Adam" loading="lazy" /></div>
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-3/600/600" alt="Tran & Adam" loading="lazy" /></div>
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-4/600/600" alt="Tran & Adam" loading="lazy" /></div>
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-5/600/600" alt="Tran & Adam" loading="lazy" /></div>
-        <div class="gallery-item"><img src="https://picsum.photos/seed/tran-adam-6/600/600" alt="Tran & Adam" loading="lazy" /></div>
+    <!-- ── 5. COUNTDOWN ───────────────────────────────────── -->
+    <section class="inv-section inv-countdown-section">
+      <p class="countdown-eyebrow animate-on-scroll">Until we say "I Do"</p>
+      <div id="countdown" class="countdown animate-on-scroll"></div>
+      <p class="countdown-bottom-date animate-on-scroll">09 · 07 · 2026</p>
+    </section>
+
+    <!-- ── 6. THANK YOU FOOTER ────────────────────────────── -->
+    <section class="inv-footer">
+      <div class="thankyou-content">
+        <p class="thankyou-label animate-on-scroll">Thank You</p>
+        <h2 class="thankyou-names animate-on-scroll">Tran &amp; Adam</h2>
+        <p class="thankyou-text animate-on-scroll">
+          for being part of our love story.<br>
+          We cannot wait to celebrate with you.
+        </p>
+        <p class="thankyou-date animate-on-scroll">09 · 07 · 2026</p>
       </div>
-    </section>
-
-    <!-- RSVP -->
-    <section class="inv-section inv-rsvp">
-      <h2 class="section-title">RSVP</h2>
-      <p class="rsvp-text">Kindly respond by <strong>August 1, 2026</strong></p>
-      <form class="rsvp-form" onsubmit="return false;">
-        <input type="text" placeholder="Your Full Name" class="rsvp-input" />
-        <div class="rsvp-radio-group">
-          <label class="rsvp-radio">
-            <input type="radio" name="attending" value="yes" /> Joyfully Accepts
-          </label>
-          <label class="rsvp-radio">
-            <input type="radio" name="attending" value="no" /> Regretfully Declines
-          </label>
-        </div>
-        <textarea placeholder="Dietary requirements or message..." class="rsvp-input rsvp-textarea"></textarea>
-        <button type="submit" class="rsvp-btn">Send RSVP</button>
-      </form>
-    </section>
-
-    <!-- Countdown + Footer -->
-    <section class="inv-section inv-footer">
-      <div id="countdown" class="countdown"></div>
-      <p class="footer-text">We can't wait to celebrate with you ♥</p>
     </section>
 
   </main>
+
+  <!-- Music toggle — shown after opening -->
+  <button id="music-toggle" class="music-toggle hidden" aria-label="Toggle music">
+    <span class="music-icon">♪</span>
+  </button>
+  <audio id="bg-music" loop preload="none">
+    <!-- <source src="/music/wedding-theme.mp3" type="audio/mpeg" /> -->
+  </audio>
 
   <script type="module" src="/src/main.js"></script>
 </body>
