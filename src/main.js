@@ -82,7 +82,7 @@ function showInvitation() {
    ══════════════════════════════════════════ */
 function startCinematicScroll() {
   const DELAY_MS = 800;
-  const SPEED_PX = 0.5;
+  const SPEED_PX = 0.8;
 
   // Disable CSS smooth-scroll — each scrollBy() queues its own animation,
   // causing stutter at 60 calls/s.
@@ -304,7 +304,7 @@ document.getElementById('save-to-cal')?.addEventListener('click', () => {
     'DTSTART:20260709T110000',
     'DTEND:20260709T130000',
     'SUMMARY:Tran & Adam Wedding',
-    'LOCATION:Nha Hang Golden Phoenix\\, 280 Trung Nu Vuong\\, Danang\\, Vietnam',
+    'LOCATION:Nha Hang Golden Phoenix\\, Duong 2/9\\, Danang\\, Vietnam',
     'DESCRIPTION:Join us to celebrate our wedding! We cannot wait to share this day with you.',
     'STATUS:CONFIRMED',
     'END:VEVENT',
