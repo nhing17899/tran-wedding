@@ -82,7 +82,7 @@ function showInvitation() {
    ══════════════════════════════════════════ */
 function startCinematicScroll() {
   const DELAY_MS = 800;
-  const SPEED_PX = 1.0;
+  const SPEED_PX = 0.5;
 
   // Disable CSS smooth-scroll — each scrollBy() queues its own animation,
   // causing stutter at 60 calls/s.
@@ -261,7 +261,17 @@ function showMusicToggle() {
   btn.classList.remove('hidden');
   gsap.from(btn, { opacity: 0, scale: 0.5, duration: 0.5, ease: 'back.out(2)' });
 
+  // Auto-play on open — allowed because user tapped the stamp (user gesture)
+  audio.volume = 0.35;
   let playing = false;
+  audio.play().then(() => {
+    playing = true;
+    btn.classList.add('playing');
+    btn.classList.remove('muted');
+  }).catch(() => {
+    // Autoplay blocked — leave button in muted state, user can tap to start
+  });
+
   btn.addEventListener('click', () => {
     if (playing) {
       audio.pause();
