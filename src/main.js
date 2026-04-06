@@ -458,13 +458,15 @@ async function loadWishes(location) {
       scrollTrigger: { trigger: list, start: 'top 85%', toggleActions: 'play none none none' },
     });
 
-    // Scroll hint arrow — hide when wrap doesn't overflow or user reaches bottom
+    // Scroll hint arrow — show only when content exceeds the wrap's max-height
     const hint = document.getElementById('wishes-scroll-hint');
     const wrap = list.closest('.wishes-list-wrap') || list;
     if (hint) {
+      hint.classList.add('hidden');
+      const wrapMaxH = parseInt(getComputedStyle(wrap).maxHeight) || 480;
       const checkHint = () => {
-        const atBottom = wrap.scrollHeight - wrap.scrollTop <= wrap.clientHeight + 4;
-        const hasOverflow = wrap.scrollHeight > wrap.clientHeight;
+        const hasOverflow = list.scrollHeight > wrapMaxH + 2;
+        const atBottom    = wrap.scrollHeight - wrap.scrollTop <= wrap.clientHeight + 4;
         hint.classList.toggle('hidden', !hasOverflow || atBottom);
       };
       checkHint();
@@ -620,3 +622,37 @@ function setRsvpFeedback(msg, type) {
   el.textContent = msg;
   el.className   = `rsvp-feedback ${type}`;
 }
+
+/* ══════════════════════════════════════════
+   HEART BURST ON CLICK / TAP
+   ══════════════════════════════════════════ */
+(function initHearts() {
+  const HEARTS = ['♥', '♥', '♥', '♥', '♥'];
+  const COLORS = ['#e8637a', '#d63a56', '#f28b9a', '#c0234a', '#f06b85'];
+  document.addEventListener('click', spawnHearts);
+  document.addEventListener('touchstart', e => {
+    for (const t of e.changedTouches) spawnHearts({ clientX: t.clientX, clientY: t.clientY });
+  }, { passive: true });
+
+  function spawnHearts({ clientX: x, clientY: y }) {
+    const count = 5 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
+      el.className = 'heart-burst';
+      el.textContent = HEARTS[Math.floor(Math.random() * HEARTS.length)];
+
+      const angle = (Math.random() * 260 - 130) * (Math.PI / 180); // fan upward
+      const dist  = 40 + Math.random() * 60;
+      const tx    = Math.sin(angle) * dist;
+      const ty    = -Math.abs(Math.cos(angle)) * dist;
+      const size  = 0.5 + Math.random() * 1.4;
+      const delay = Math.random() * 120;
+      const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+
+      el.style.cssText = `left:${x}px;top:${y}px;font-size:${size}em;color:${color};animation-delay:${delay}ms;--tx:${tx}px;--ty:${ty}px`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove(), { once: true });
+    }
+  }
+}());
+

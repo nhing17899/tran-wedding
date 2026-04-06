@@ -942,6 +942,23 @@ body.scroll-locked {
 }
 
 /* ══════════════════════════════════════════
+   HEART BURST
+   ══════════════════════════════════════════ */
+.heart-burst {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: heart-fly .75s ease-out forwards;
+  line-height: 1;
+}
+@keyframes heart-fly {
+  0%   { opacity: 1;   transform: translate(-50%, -50%) translate(0, 0) scale(1); }
+  100% { opacity: 0;   transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(.4); }
+}
+
+/* ══════════════════════════════════════════
    8. THANK YOU FOOTER
    ══════════════════════════════════════════ */
 .inv-footer {
