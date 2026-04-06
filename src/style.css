@@ -843,7 +843,106 @@ body.scroll-locked {
 }
 
 /* ══════════════════════════════════════════
-   6. THANK YOU FOOTER
+   7. WISHES & GREETINGS
+   ══════════════════════════════════════════ */
+.inv-wishes {
+  max-width: 100%;
+  padding: 2.5rem 2rem 2.5rem;
+  text-align: center;
+  background: url('/bg_page2.png') center / cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 2;
+}
+.inv-wishes .section-title {
+  margin-bottom: .6rem;
+}
+.wishes-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(.95rem, 2.5vw, 1.2rem);
+  color: var(--color-text-light);
+  margin-bottom: 3rem;
+}
+
+.wish-note {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.6vw, 1.15rem);
+  color: var(--color-text);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(18px);
+  text-align: center;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 520px;
+  width: 100%;
+}
+.wish-note-quote {
+  display: block;
+  font-style: italic;
+  font-size: 1.1em;
+  white-space: normal;
+}
+.wish-note-author {
+  display: block;
+  font-style: normal;
+  font-size: .78em;
+  letter-spacing: .08em;
+  color: var(--bx-main);
+  margin-top: .05em;
+}
+
+.wishes-list-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  max-height: 480px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.wishes-list-wrap::-webkit-scrollbar { display: none; }
+
+.wishes-scroll-hint {
+  display: flex;
+  justify-content: center;
+  margin-top: .5rem;
+  transition: opacity .4s;
+}
+.wishes-scroll-hint.hidden { opacity: 0; pointer-events: none; }
+.wishes-scroll-hint svg {
+  width: 22px;
+  height: 22px;
+  color: var(--bx-main);
+  animation: wish-arrow-pulse 1.6s ease-in-out infinite;
+}
+@keyframes wish-arrow-pulse {
+  0%, 100% { opacity: .35; transform: translateY(0); }
+  50%       { opacity: 1;   transform: translateY(5px); }
+}
+
+.wishes-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+
+.wishes-empty {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* ══════════════════════════════════════════
+   8. THANK YOU FOOTER
    ══════════════════════════════════════════ */
 .inv-footer {
   background: var(--color-bg);

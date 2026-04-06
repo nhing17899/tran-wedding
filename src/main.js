@@ -242,6 +242,7 @@ function showInvitation() {
     initScrollAnimations();
     startCinematicScroll();
     showMusicToggle();
+    loadWishes(selectedLocation);
   });
 
   startCountdown(LOCATIONS[selectedLocation].countdownDate);
@@ -406,6 +407,74 @@ function initScrollAnimations() {
   revealGroup('.inv-rsvp', ['.rsvp-form'], 0, { delay: 0.1 });
 
   // Footer is always visible — no scroll reveal needed
+}
+
+/* ══════════════════════════════════════════
+   WISHES & GREETINGS
+   ══════════════════════════════════════════ */
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+async function loadWishes(location) {
+  const section = document.getElementById('wishes-section');
+  const list    = document.getElementById('wishes-list');
+  if (!section || !list) return;
+
+  gsap.fromTo(
+    ['#wishes-section .section-title', '#wishes-section .wishes-subtitle'],
+    { y: 28, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.75, stagger: 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: section, start: 'top 82%', toggleActions: 'play none none none' } }
+  );
+
+  try {
+    console.log('[wishes] fetching /api/wishes...');
+    const res = await fetch(`/api/wishes?location=${encodeURIComponent(location)}`);
+    console.log('[wishes] response status:', res.status);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    console.log('[wishes] data:', data);
+    const { wishes } = data;
+
+    if (!wishes || !wishes.length) {
+      console.log('[wishes] empty list');
+      list.innerHTML = '<p class="wishes-empty">Be the first to leave a wish above!</p>';
+      return;
+    }
+
+    list.innerHTML = wishes.map(w =>
+      `<p class="wish-note">
+        <span class="wish-note-quote">“${escHtml(w.message)}”</span>
+        <span class="wish-note-author">— ${escHtml(w.name)} —</span>
+      </p>`
+    ).join('');
+
+    // Stagger each note in on scroll
+    gsap.to('.wish-note', {
+      y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out',
+      scrollTrigger: { trigger: list, start: 'top 85%', toggleActions: 'play none none none' },
+    });
+
+    // Scroll hint arrow — hide when wrap doesn't overflow or user reaches bottom
+    const hint = document.getElementById('wishes-scroll-hint');
+    const wrap = list.closest('.wishes-list-wrap') || list;
+    if (hint) {
+      const checkHint = () => {
+        const atBottom = wrap.scrollHeight - wrap.scrollTop <= wrap.clientHeight + 4;
+        const hasOverflow = wrap.scrollHeight > wrap.clientHeight;
+        hint.classList.toggle('hidden', !hasOverflow || atBottom);
+      };
+      checkHint();
+      wrap.addEventListener('scroll', checkHint, { passive: true });
+    }
+
+  } catch (err) {
+    console.error('[wishes] fetch failed:', err);
+    list.innerHTML = '<p class="wishes-empty">Wishes will appear here soon.</p>';
+  }
 }
 
 /* ══════════════════════════════════════════
